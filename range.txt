@@ -1,0 +1,7 @@
+01
+2012-11-34
+40000000001|42999999999|Visa electron
+5410000|5575199|debit mastercard
+45|48|visa
+49|67|visa impresja
+6700001|6899999|maestro
