@@ -18,9 +18,10 @@ struct Card{
 };
 
 struct RangeCard{
-	string from;
-	string to;
-	string name;
+    
+    string from;
+    string to;
+    string name;
 };
 
 vector <string> loadFile(const char *source)
@@ -56,7 +57,7 @@ string getCardNumber(string track)
     
     while(track.at(i) != '=' || i == track.size())
     {
-    	i++;
+        i++;
     }
     
     cardNumber = track.substr(1, i-1);
@@ -88,7 +89,7 @@ string getSeciurityCode(string track)
     
     while(track.at(i) != '=' || i == track.size())
     {
-		i++;
+        i++;
     }
     
     seciurityCode = track.substr(i+5, 3);
@@ -165,28 +166,28 @@ void checkAuthorizationMethod(string code)
 
 void checkCardName(string number, const vector<RangeCard> &rangeCards)
 {
-	int nrChar = -1;
-	int rangeFromChar = -1;
-	int rangeToChar = -1;
-	
-	for(int i = 0; i < rangeCards.size(); i++)
-	{
-		for(int j = 0; j < rangeCards.at(i).from.size(); j++)
-		{
-			nrChar = number.at(j) - '0';
-			rangeFromChar = rangeCards.at(i).from.at(j) - '0';
-			rangeToChar = rangeCards.at(i).to.at(j) - '0';
-			
-			if (nrChar >= rangeFromChar && nrChar <=rangeToChar)
-			;
-			else
-				break;
-			
-			if (j == rangeCards.at(i).from.size() - 1)
-				cout << "Nazwa karty o numerze " << number <<" to " << rangeCards.at(i).name << endl;
-			
-		}
-	}
+    int nrChar = -1;
+    int rangeFromChar = -1;
+    int rangeToChar = -1;
+    
+    for(int i = 0; i < rangeCards.size(); i++)
+    {
+        for(int j = 0; j < rangeCards.at(i).from.size(); j++)
+        {
+            nrChar = number.at(j) - '0';
+            rangeFromChar = rangeCards.at(i).from.at(j) - '0';
+            rangeToChar = rangeCards.at(i).to.at(j) - '0';
+            
+            if (nrChar >= rangeFromChar && nrChar <=rangeToChar)
+                ;
+            else
+                break;
+            
+            if (j == rangeCards.at(i).from.size() - 1)
+                cout << "Nazwa karty o numerze " << number <<" to " << rangeCards.at(i).name << endl;
+            
+        }
+    }
 }
 
 void taskForTrack(const vector<RangeCard> &rangeCards)
@@ -195,8 +196,8 @@ void taskForTrack(const vector<RangeCard> &rangeCards)
     vector <Card> cards;
     
     cout << "Zadania dla pliku " << TRACK_SOURCE << endl << "- Pobranie numerow kart z pliku" << endl <<
-		"- Sprawdzenie czy dana karta jest wazna" << endl << "- Sprawdzenie metody weryfikacji karty" << endl
-		<< "- Wyciagniecie i wyswietlenie nazwy karty" << endl;
+            "- Sprawdzenie czy dana karta jest wazna" << endl << "- Sprawdzenie metody weryfikacji karty" << endl
+         << "- Wyciagniecie i wyswietlenie nazwy karty" << endl;
     cout << "******************" << endl << endl;
     
     track = loadFile(TRACK_SOURCE);
@@ -241,27 +242,27 @@ void taskForTrack(const vector<RangeCard> &rangeCards)
 
 RangeCard getRangeCardInformation(string range)
 {
-	RangeCard rCard;
-	
-	int i = 0;
+    RangeCard rCard;
+    
+    int i = 0;
     
     stringstream ss(range);
     string item;
     while (getline(ss, item, '|')) 
-	{
-		if(!item.empty())
-		{
-			i++;
-			if (i == 1)
-				rCard.from = item;
-			else if(i == 2)
-				rCard.to = item;
-			else if(i == 3)
-				rCard.name = item;
-		}
+    {
+        if(!item.empty())
+        {
+            i++;
+            if (i == 1)
+                rCard.from = item;
+            else if(i == 2)
+                rCard.to = item;
+            else if(i == 3)
+                rCard.name = item;
+        }
     }
-	
-	return rCard;
+    
+    return rCard;
 }
 
 vector<RangeCard> taskForRange()
@@ -280,15 +281,15 @@ vector<RangeCard> taskForRange()
         
         if(!range.at(i).empty())
         {
-			rCard = getRangeCardInformation(range.at(i));
+            rCard = getRangeCardInformation(range.at(i));
         }
         rangeCards.push_back(rCard);
     }
     
     for( int i = 0; i< rangeCards.size(); i++)
     {
-    	cout << "Zakres od " << rangeCards.at(i).from << " do " << rangeCards.at(i).to << " to karta " << rangeCards.at(i).name << endl;
-	}
+        cout << "Zakres od " << rangeCards.at(i).from << " do " << rangeCards.at(i).to << " to karta " << rangeCards.at(i).name << endl;
+    }
     
     cout << endl << "Koniec zadan dla pliku " << RANGE_SOURCE << endl;
     cout << "*************************" << endl << endl;
@@ -298,52 +299,52 @@ vector<RangeCard> taskForRange()
 
 bool isValidAccountNumber(string number)
 {
-	bool isValid = false;
-	
-	int modulo = 0;
-	int charNr = 0;
-	
-	string znak;
-	string temp;
-	
-	if (number.size() != 26)
-		return false;
-		
-	temp = number.substr(0,2);
-	number.erase(0,2);
-	number += "2521";
-	number += temp;
-
-	for (int i = 0; i < number.size(); i+=2)
-	{
-		znak = number.substr(i,2);
-		charNr = atoi(znak.c_str());
-		
-		modulo = (100 * modulo + charNr) % 97;	
-	}
-
-	if (modulo == 1)
-		isValid = true;
-	
-	return isValid;
+    bool isValid = false;
+    
+    int modulo = 0;
+    int charNr = 0;
+    
+    string znak;
+    string temp;
+    
+    if (number.size() != 26)
+        return false;
+    
+    temp = number.substr(0,2);
+    number.erase(0,2);
+    number += "2521";
+    number += temp;
+    
+    for (int i = 0; i < number.size(); i+=2)
+    {
+        znak = number.substr(i,2);
+        charNr = atoi(znak.c_str());
+        
+        modulo = (100 * modulo + charNr) % 97;	
+    }
+    
+    if (modulo == 1)
+        isValid = true;
+    
+    return isValid;
 }
 
 void validateAccountNumber(string number)
 {
-	string accN = number;
-	while(accN.find(" ") != string::npos)
-  	  accN.erase(accN.find(" "), 1);
-  	  
-  	bool isValid = false;
-	
-	isValid = isValidAccountNumber(accN);
-	
-	if (isValid)  
-		cout << "Numer Konta = " << accN << " jest poprawny" << endl;
-	else
-		cout << "Numer Konta = " << accN << " jest niepoprawny" << endl;
-	
-	return;
+    string accN = number;
+    while(accN.find(" ") != string::npos)
+        accN.erase(accN.find(" "), 1);
+    
+    bool isValid = false;
+    
+    isValid = isValidAccountNumber(accN);
+    
+    if (isValid)  
+        cout << "Numer Konta = " << accN << " jest poprawny" << endl;
+    else
+        cout << "Numer Konta = " << accN << " jest niepoprawny" << endl;
+    
+    return;
 }
 
 void taskForAcc()
@@ -351,15 +352,15 @@ void taskForAcc()
     vector <string> acc;
     
     cout << "Zadania dla pliku " << ACC_SOURCE << endl << "- Pobranie numerow kont bankowych z pliku" << 
-		endl << "- Sprawdzenie czy dany numer konta jest poprawny" << endl;
+            endl << "- Sprawdzenie czy dany numer konta jest poprawny" << endl;
     cout << "******************" << endl << endl;
-	    
+    
     acc = loadFile(ACC_SOURCE);
     
     for( int i = 2; i < acc.size(); i++)
     {
-    	validateAccountNumber(acc.at(i));
-	}
+        validateAccountNumber(acc.at(i));
+    }
     
     cout << endl <<  "Koniec zadan dla pliku " << ACC_SOURCE << endl;
     cout << "*************************" << endl << endl;
@@ -367,10 +368,10 @@ void taskForAcc()
 
 int main()
 {
-	vector<RangeCard> rCard;
-	
-	rCard = taskForRange();
-	taskForTrack(rCard);
+    vector<RangeCard> rCard;
+    
+    rCard = taskForRange();
+    taskForTrack(rCard);
     taskForAcc();
     
     return 0;
